@@ -8,11 +8,18 @@ input_file.close()
 
 # Temporary input for text version of program
 def inputCity() -> str:
-    city = input("Enter a city: ")
-    return city
+    return input("Enter a city: ")
+
+def weatherInput() -> str:
+    return input('Enter "Temperature," "Humidity," "Precipitation," "Time," or "UV": ')
 
 city = inputCity()
 
 wc = weatherCity(city, cities)
+def printInputWeather():
+    try:
+        print(eval('wc.get' + weatherInput() + "()"))
+    except:
+        printInputWeather()
 
-wc.test()
+printInputWeather()
