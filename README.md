@@ -3,9 +3,13 @@ World Info provides a brief general description of what is occurring around the 
 -----
 ### What is Needed
 * Python
-* pip install darksky
 
-### How it Works
-* Type one of the cities in the cityLoc.json file into the program to get general weather information
-  * Keep in mind, there is no solid error handling implemented yet
-* Run the runASCII for the text version (not quiet polished) OR run the runGUI for the GUI version
+### How to Run
+* Run the "runGUI.py" file to run the GUI of World Info
+* Pick from the select cities in the dropdown or fill in your own
+* Click "Get Weather" to get the weather of the selected city
+
+### Upcoming
+* News integration with each city
+* More GUI features
+* A visual map of cities layed out on various countries
