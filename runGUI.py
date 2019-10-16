@@ -1,20 +1,21 @@
 import tkinter as tk
-from tkinter import *
-from tkinter.ttk import *
-from tkinter import messagebox
-from weatherCity import weatherCity
-import json
+from tkinter import Tk, BOTTOM, messagebox
+from tkinter.ttk import Label, Combobox, Button
+from weatherLocation import weatherLocation
+from geocode import Location
 
 #-------- Weather Info ----------------
 
-input_file = open('cityLoc.json')
-cities = json.load(input_file)
-input_file.close()
+# input_file = open('cityLoc.json')
+# cities = json.load(input_file)
+# input_file.close()
 
-def validCity(city) -> bool:
-    if (city in cities):
-        return True
-    return False
+# def validCity(city) -> bool:
+#     if (city in cities):
+#         return True
+#     return False
+
+majorCities = ["Los Angeles", "San Francisco", "Irvine", "Fresno", "San Diego", "San Juan Capistrano", "Santa Barbara", "Bakersfield"]
 
 #------- Initialize Window -------------
 root = Tk()
@@ -22,18 +23,20 @@ root.title("Weather Info")
 # root.geometry('700x400')
 
 # To fullscreen use this
-root.attributes('-fullscreen', True);
+# root.attributes('-fullscreen', True)
   
 #------- GUI Contents ---------------------
 
 def clicked():
     city = weatherCombo.get()
-    if (validCity(city)):
-        wc = weatherCity(city, cities)
-        message = wc.__str__()
+    try:
+        l = Location(city)
+        wl = weatherLocation(l.getLatitude(), l.getLatitude())
+        wl.getTemperature()
+        message = wl.__str__()
         messagebox.showinfo('Weather Status', message)
-    else:
-        messagebox.showinfo('Weather Status', "Please Enter a Valid City")
+    except:
+        messagebox.showinfo('Weather Status', "Sorry, city not recognized.")
 
 
 # Intialize Title Label
@@ -50,7 +53,7 @@ weatherLabel.pack(pady=10)
 
 #Initialize Drop Down Menu
 weatherCombo = Combobox(root)
-weatherCombo['values'] = sorted(c for c in cities.keys())
+weatherCombo['values'] = sorted(c for c in majorCities)
 weatherCombo.current(0)
 # weatherCombo.grid(column=1, row=1)
 weatherCombo.pack(pady=10)
